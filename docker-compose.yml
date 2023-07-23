@@ -1,0 +1,25 @@
+version: "3"
+services:
+  mysql:
+    build:
+      context: .
+      dockerfile: docker/mysql/Dockerfile
+    networks:
+      - internal
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+    ports: 
+      - "80:80"
+    networks:
+      - internal
+  php:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    networks:
+      - internal
+networks:
+  internal:
+    driver: bridge

@@ -1,0 +1,67 @@
+@startuml
+
+Title "NFP Community Org Usecases"
+left to right direction
+actor "User" as u
+actor "Member" as m
+actor "Excom Member" as e
+
+rectangle Profile {
+  usecase "Login" as UC1
+  usecase "Register" as UC2
+  usecase "Logout" as UC3
+  usecase "Edit Profile" as UC4
+  usecase "Add Family" as UC5
+
+}
+
+rectangle Event {
+  usecase "View Events" as UC7
+  usecase "Register for an Event" as UC8
+  usecase "Make Payment for an Event" as UC9
+  usecase "View My attenance" as UC10
+  usecase "Provide Feedbacks" as UC12
+}
+
+rectangle General {
+  usecase "Membership Enrollment" as UC6
+  usecase "Provide suggestions" as UC13
+  usecase "View Notices" as UC11
+  usecase "View Payment Arrears" as UC14
+  usecase "Make Donations" as UC14
+}
+
+u --> UC1
+u --> UC2
+u --> UC3
+u --> UC4
+u --> UC5
+u --> UC6
+u --> UC7
+u --> UC8
+u --> UC9
+u --> UC10
+u --> UC11
+u --> UC12
+u --> UC13
+u --> UC14
+
+
+rectangle "Membership" {
+    usecase "Renew membership" as rm
+
+}
+
+m --> rm
+
+rectangle "Membership" {
+    usecase "view members" as vm
+
+    usecase "view Excom members" as ve
+
+}
+
+e --> vm
+e --> ve
+
+@enduml
