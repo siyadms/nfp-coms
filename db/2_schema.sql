@@ -77,3 +77,11 @@ create table Membership(
     CONSTRAINT PK_Membership PRIMARY KEY (user_id, membership_year)
 );
 
+DELIMITER //
+CREATE PROCEDURE GetNextUserId()
+BEGIN
+    select CONCAT('AMIA',LPAD(max(a.id)+1,5,'0')) user_id from (SELECT SUBSTRING(user_id,5) id FROM User) a;
+END
+//
+
+DELIMITER ;

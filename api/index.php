@@ -11,9 +11,10 @@
     switch($url_matcher) {
         case 'POST user':
             $user = json_decode(file_get_contents('php://input'));
-            $sql = "INSERT INTO User(user_id, first_name, last_name, email, phone, gender, user_role) values('AMIA00124', :first_name, :last_name, :email, :phone, :gender, null)";
+            $sql = "INSERT INTO User(user_id, first_name, last_name, email, phone, gender, user_role) values(:user_id, :first_name, :last_name, :email, :phone, :gender, null)";
             $stmt = $db->prepare($sql);
-            //$date = date('Y-m-d');
+            $user_id = ($db->query('CALL GetNextUserId()'))->fetch();
+            $stmt->bindParam(':user_id', $user_id['user_id']);
             $stmt->bindParam(':first_name', $user->first_name);
             $stmt->bindParam(':last_name', $user->last_name);
             $stmt->bindParam(':email', $user->email);
@@ -59,7 +60,7 @@
             }
             echo json_encode($response);
             break;
-        case 'DELETE users': 
+        case 'DELETE user': 
             $sql = "DELETE FROM User WHERE user_id = :id";    
             $stmt = $db->prepare($sql);
             $stmt->bindParam(':id', $url_path[2]);

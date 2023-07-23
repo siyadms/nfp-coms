@@ -2,8 +2,10 @@ import React from 'react';
 import axios from 'axios';
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function ListUser() {
+    const navigate = useNavigate();
     const [users, setUsers] = useState([]);
     useEffect(() => {
         getUsers();
@@ -12,6 +14,13 @@ export default function ListUser() {
         axios.get('http://localhost/api/users/').then(function(response) {
             setUsers(response.data);
         });
+    }
+    const handleDelete = (userId) => {
+        axios.delete(`http://localhost/api/user/${userId}`).then(function(response){
+            console.log(response.data);
+            navigate('/');
+        });
+
     }
     return (
         <div>
@@ -39,7 +48,7 @@ export default function ListUser() {
                             <td>{user.gender}</td>
                             <td>
                                 <Link to={`user/${user.user_id}/edit`} style={{marginRight: "10px"}}>Edit</Link>
-                                <button>Delete</button>
+                                <button onClick={()=>handleDelete(user.user_id)}>Delete</button>
                             </td>
                         </tr>
                     )}
